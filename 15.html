@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- select為下拉選單 -->
+        <select v-model="default_select" name="demo1">
+            <!-- option為選項 -->
+            <option value="0">choose</option>
+            <option value="p">a</option>
+            <option value="x">b</option>
+            <option value="sd">c</option>
+            <!-- 設定default的第二種方法 -->
+            <!-- <option value="sd" selected>c</option> -->
+        </select>
+        default:{{default_select}}
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                // 選擇默認值得value
+                default_select:"x"
+            }
+        })
+    </script>
+</body>
+</html>
