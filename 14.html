@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{info}}<br>
+        <!-- 使用v-model雙向綁定(可更改vue data的變數內容) -->
+        <input type="text" v-model = "info"><br>
+
+        <!-- <textarea> 可以用來在表單 (form) 中，建立一個可以輸入多行文字的輸入框 (multi-line textbox) -->
+        <textarea v-model="info"></textarea>
+
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                info:"barry",
+            }
+        })
+    </script>
+</body>
+</html>
