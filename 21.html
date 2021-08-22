@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{name}}<br>
+        {{name | demo1}}
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                name:"barry"
+            },
+            // 可透過過濾器處理文字格式化
+            filters:{
+                demo1: function(cs){
+                    if(!cs) return ""
+                    cs = cs.toString()
+                    return cs.charAt(0).toUpperCase()+cs.slice(1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
