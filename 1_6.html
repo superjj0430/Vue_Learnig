@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="barry_app">
+        <!-- 雙大括號裡可呼叫data定義的變數 -->
+        <!-- {{site}} -->
+        <h1>{{site}}</h1>
+        <h1>{{cs()}}</h1>
+    </div>
+
+    <script>
+        var myvue = new Vue({
+            // el為element用來呼叫定義的id
+            el: "#barry_app",
+            // data裡面裝變數
+            data:{
+                site:"大學課堂",
+                url:"www.123.com"
+            },
+            methods: {
+                cs:function(){
+                    return "function test " + this.url;
+                }
+            },
+        })
+        // 更改vue的數據
+        myvue.site = "123"
+    </script>
+
+</body>
+</html>
