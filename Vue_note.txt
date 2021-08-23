@@ -1,0 +1,299 @@
+# Vus安裝
+	1.從官網安裝vue.min.js包
+	2.將vue.min.js包放置專案資料夾
+	3.在HTML裡引入<script src="vue.js"></script>
+	
+	
+	
+# 實例化Vue
+		var vm = new Vue({
+			el: '#id',
+			data: {
+				info:"要綁定的資料內容"
+			},
+			methods: {
+				func_name: function() {
+				
+				}
+			}
+		})
+	* 透過Vue物件中的el屬性將Vue的作用範圍限定在指定的html元素內
+	* data用於定義Vue屬性
+	* methods用於定義函數
+	* {{}}用於輸出對象屬性與函數返回值
+	
+	
+	
+# 可透過前綴$來區分Vue屬性與用戶定義屬性
+	vm.$data
+	
+	
+	
+# Vue語法
+
+	1.透過{{}}實現基本數據綁定
+		<div id="app">
+			<p>{{ message }}</p>
+		</div>
+
+	2.透過v-model實現資料雙向綁定
+		<div id="app">
+			{{info}}<br>
+			<input v-model="info">
+		</div>
+	  
+	  用於checkbox(以true/false表示)
+		<input type="checkbox" v-model="checkbox">
+	
+	  用於下拉式選單
+        <input type="checkbox" v-model="checkbox"><br>
+        <select v-model="selected">
+            <option value="">請選擇</option>
+            <option value="man">男</option>
+            <option value="woman">女</option>
+        </select>
+	
+	  修飾符
+		> .lazy: 將資料同步方式轉換為離開欄位才同步 
+			<input type="text" v-model.lazy="lazyMsg" />
+			
+		> .number: 將內容轉換為數字型態
+			<input type="text" v-model.number="age" />
+			
+		> .trim: 過濾輸入的首尾空白字符
+			<input type="text" v-model.trim="trimMsg" />
+	
+	3.v-text & v-html資料渲染
+		兩者差別在v-html可解析html語法
+		<body>
+			<div id="app">
+				<div v-text="msg"></div>
+				<div v-html="msg_html"></div>
+			</div>
+			<script>
+				new Vue({
+					el:"#app",
+					data:{
+						msg:"測試",
+						msg_html:"<h1>這是html</h1>"
+					}
+				})
+			</script>
+		</body>
+	
+	4.透過v-bind綁定html元素上的屬性
+		<div id="app">
+			<a v-bind:title="info">v-bind綁定</a>
+			<!-- 可縮寫成: -->
+			<a :title="info">v-bind綁定</a>
+		</div>
+	
+	  可綁定class
+		<body>
+			<div id="app">
+				<div class="item" v-bind:class="classObject"></div>
+			</div>
+			<script>
+				new Vue({
+					el:"#app",
+					data:{
+						info:"測試",
+						classObject:{
+							active:true,
+							error:false
+						}
+					}
+				})
+			</script>
+		</body>
+	
+	  可綁定styley
+		<body>
+			<div id="app">
+				<div class="item" v-bind:style="styleObject">test</div>
+			</div>
+			<script>
+				new Vue({
+					el:"#app",
+					data:{
+						styleObject:{
+							color: 'red',
+							bordeWidth: '13px'
+						}
+					}
+				})
+			</script>
+		</body>
+	
+	5.透過v-on實現事件監聽並觸發func
+		<body>
+			<div id="app">
+				<input v-on:keyup.enter="reverseText" v-model="text"><br>
+				<!-- 可縮寫成@ -->
+				<button @:click="reverseText">reverse</button>
+				{{newText}}
+			</div>
+
+			<script>
+				new Vue({
+					el:"#app",
+					data:{
+						text:"",
+						newText:""
+					},
+				methods:{
+					reverseText: function(){
+						this.newText = this.text.split("").reverse().join('')
+					}
+				}
+				})
+			</script>
+		</body>
+	
+	6.透過v-for實現列表渲染
+		<body>
+			<div id="app">
+				<ul>
+					<li v-for="(item, index) in arrayData">
+						{{index}} - {{item.name}}  {{item.age}}歲
+					</li>
+				</ul>
+			</div>
+
+			<script>
+				new Vue({
+					el:"#app",
+					data:{
+						arrayData:[
+							{name:"jack", age:16},
+							{name:"alice", age:18}
+						]
+					}
+				})
+			</script>
+		</body>
+	  
+	  物件渲染
+		<body>
+			<div id="app">
+				<ul>
+					<li v-for="(item, key,index) in objectData">
+						{{key}}-{{index}} - {{item.name}}  {{item.age}}
+					</li>
+				</ul>
+			</div>
+
+			<script>
+				new Vue({
+					el:"#app",
+					data:{
+						objectData:{
+							key1: {name:"jack", age:16},
+							key2: {name:"alice", age:18}
+						}
+					}
+				})
+			</script>
+		</body>
+	  
+	  也可用於數字迭代或加入template使用
+	
+	7.v-if/v-else/v-else-if條件渲染
+		<div id="app">
+			<div v-if="type === 'A'">
+			  A
+			</div>
+			<div v-else-if="type === 'B'">
+			  B
+			</div>
+			<div v-else-if="type === 'C'">
+			  C
+			</div>
+			<div v-else>
+			  Not A/B/C
+			</div>
+		</div>
+			
+		<script>
+		new Vue({
+		  el: '#app',
+		  data: {
+			type: 'C'
+		  }
+		})
+		</script>
+	
+	8.透過watch監聽值的變化
+		<div id = "app">
+			<p style = "font-size:25px;">計數器: {{ counter }}</p>
+			<button @click = "counter++" style = "font-size:25px;">點擊</button>
+		</div>
+		<script type = "text/javascript">
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				counter: 1
+			}
+		});
+		vm.$watch('counter', function(nval, oval) {
+			alert('數值變化 :' + oval + ' 變為 ' + nval + '!');
+		});
+		</script>
+	
+	
+	
+# Vue組件(Component)
+	> Vue可透過組件封裝可重用的代碼
+	
+	1.註冊全局組件
+        Vue.component('demo', {
+        // data必須為一個函數，不能直接提供物件
+        data: function () {
+            return {
+            count: 0
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+        })
+	
+	2.註冊局部組件
+		<div id="app">
+			<test></test>
+		</div>
+
+		<script>
+
+			var test = {
+				template: '<h1>測試用</h1>'
+			}
+
+			new Vue({
+				el:"#app",
+				data:{
+					info:"測試"
+				},
+				components:{
+					"test":test
+				}
+			})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
