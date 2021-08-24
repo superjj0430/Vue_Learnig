@@ -333,6 +333,66 @@
 	
 	
 	
+# 自定義指令
+	1.可全局註冊或局部註冊(在組件或VUE物件內註冊)
+		<div id="app">
+			<p>自動獲取焦點</p>
+			<input v-focus>
+		</div>
+
+		<script>
+			// 全局註冊
+			Vue.directive('focus',{
+				inserted: function(el){
+					el.focus()
+				}
+			})
+
+
+			new Vue({
+				el:"#app",
+				data:{
+					info:"測試"
+				}
+			})
+		</script>
+	
+	2.鉤子函數，用於在不同生命周期執行客製化指令
+		>bind：只调用一次，指令第一次绑定到元素时调用
+		>inserted：被绑定元素插入父节点时调用
+		>update：被绑定元素所在的模板更新时调用
+		>componentUpdated：被绑定元素所在模板完成一次更新周期时调用
+		>unbind：只调用一次， 指令与元素解绑时调用
+	
+	3.鉤子函數參數
+		>el:指令所绑定的元素，可以用来直接操作 DOM
+		>binding:一個對象，包含以下屬性
+			* name 指令名，不包括 v- 前缀
+			* vale 指令的绑定值
+			* oldValue 指令绑定的前一個值，僅在 update 和 componentUpdated 钩子中可用
+			* expression 绑定值的表達式或變量名
+			* arg 傳给指令的参数
+			* modifiers 一個包含修饰符的對象
+		>vnode:虛擬節點
+		>oldVnode:上一個虛擬節點，只能在update和componentUpdate鉤子用
+
+		
+
+# Vue路由	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
